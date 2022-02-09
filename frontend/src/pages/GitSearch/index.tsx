@@ -43,8 +43,8 @@ const GitSearch = () => {
 
   return (
     <div className="git-search-container">
-      <h1 className="text-primary">Encontre um perfil Github</h1>
       <div className="container search-container">
+      <h1>Encontre um perfil Github</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-container">
             <input
