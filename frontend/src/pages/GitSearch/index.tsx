@@ -6,19 +6,22 @@ import { useState } from 'react';
 import axios from 'axios';
 
 type FormData = {
-  cep: string;
+  user: string;
 };
 
-type Address = {
-  logradouro: string;
-  localidade: string;
+type UserProfile = {
+  avatar_url: string;
+  html_url: string;
+  followers: string;
+  location: string;
+  name: string;
 };
 
 const GitSearch = () => {
-  const [address, setAddress] = useState<Address>();
-
+  const [userProfile, setUserProfile] = useState<UserProfile>();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    cep: '',
+    user: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,15 +32,17 @@ const GitSearch = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setIsLoading(true);
     axios
-      .get(`https://viacep.com.br/ws/${formData.cep}/json/`)
+      .get(`https://api.github.com/users/${formData.user}`)
       .then((response) => {
-        setAddress(response.data);
+        setUserProfile(response.data);
       })
       .catch((error) => {
-        setAddress(undefined);
+        setUserProfile(undefined);
         console.log(error);
+      }).finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -49,10 +54,10 @@ const GitSearch = () => {
           <div className="form-container">
             <input
               type="text"
-              name="usuario"
+              name="user"
               className="search-input"
               placeholder="Usuário Github"
-              value={formData.cep}
+              value={formData.user}
               onChange={handleChange}
             />
             <button type="submit" className="btn btn-primary search-button">
@@ -61,11 +66,17 @@ const GitSearch = () => {
           </div>
         </form>
       </div>
-      {/* {address && */}
-      {/* <> */}
-      <ResultCard title="" description="" />
-      {/* </> */}
-      {/* } */}
+      {userProfile && (
+        <>
+          <ResultCard
+            avatar_url={userProfile.avatar_url}
+            html_url={userProfile.html_url}
+            followers={userProfile.followers}
+            location={userProfile.location}
+            name={userProfile.name}
+          />
+        </>
+      )}
     </div>
   );
 };

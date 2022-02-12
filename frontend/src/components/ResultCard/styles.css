@@ -43,6 +43,17 @@
   color: #737373;
   margin-bottom: 5px;
   font-size: 12px;
+  font-weight: 700;
+}
+
+.info-container a{
+  text-decoration: underline;
+  color: blue ;
+  font-weight: 400;
+}
+
+.info-container p span {
+  font-weight: 400;
 }
 
 @media (min-width: 576px) {
@@ -69,11 +80,12 @@
   .info-container {
     height: 260px;
   }
+}
 
+@media (min-width: 992px) {
   .info-container h2 {
     font-size: 20px;
   }
-
   .info-container p {
     font-size: 16px;
   }
