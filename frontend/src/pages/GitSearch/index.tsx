@@ -4,6 +4,7 @@ import ResultCard from 'components/ResultCard';
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import CardResultLoader from './CardResultLoader';
 
 type FormData = {
   user: string;
@@ -41,7 +42,8 @@ const GitSearch = () => {
       .catch((error) => {
         setUserProfile(undefined);
         console.log(error);
-      }).finally(() => {
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   };
@@ -66,16 +68,22 @@ const GitSearch = () => {
           </div>
         </form>
       </div>
-      {userProfile && (
-        <>
-          <ResultCard
-            avatar_url={userProfile.avatar_url}
-            html_url={userProfile.html_url}
-            followers={userProfile.followers}
-            location={userProfile.location}
-            name={userProfile.name}
-          />
-        </>
+      {isLoading ? (
+        <div className="container">
+          <CardResultLoader />
+        </div>
+      ) : (
+        userProfile && (
+          <>
+            <ResultCard
+              avatar_url={userProfile.avatar_url}
+              html_url={userProfile.html_url}
+              followers={userProfile.followers}
+              location={userProfile.location}
+              name={userProfile.name}
+            />
+          </>
+        )
       )}
     </div>
   );
