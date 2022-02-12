@@ -44,7 +44,7 @@ const GitSearch = () => {
   return (
     <div className="git-search-container">
       <div className="container search-container">
-      <h1>Encontre um perfil Github</h1>
+        <h1>Encontre um perfil Github</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-container">
             <input
@@ -60,13 +60,12 @@ const GitSearch = () => {
             </button>
           </div>
         </form>
-
-        {address &&
-          <>
-            <ResultCard title="Result" description={address.logradouro} />
-          </>
-        }
       </div>
+      {/* {address && */}
+      {/* <> */}
+      <ResultCard title="" description="" />
+      {/* </> */}
+      {/* } */}
     </div>
   );
 };
